@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import PlanetsContext from '../../context/PlanetsContext';
 
 function Filters() {
@@ -14,6 +14,14 @@ function Filters() {
     filters,
     setFilters,
   } = useContext(PlanetsContext);
+
+  const [availableColumns, setAvailableColumns] = useState([
+    'population',
+    'orbital_period',
+    'diameter',
+    'rotation_period',
+    'surface_water',
+  ]);
 
   const handleNameFilterChange = (event) => {
     setNameFilter(event.target.value);
@@ -38,6 +46,13 @@ function Filters() {
       value: valueFilter,
     };
     setFilters([...filters, newFilter]);
+    const newColumnOptions = availableColumns.filter((option) => option !== columnFilter);
+    setAvailableColumns(newColumnOptions);
+    if (newColumnOptions.length > 0) {
+      setColumnFilter(newColumnOptions[0]);
+    } else {
+      setColumnFilter('');
+    }
   };
 
   return (
@@ -54,11 +69,9 @@ function Filters() {
         value={ columnFilter }
         onChange={ handleColumnFilterChange }
       >
-        <option value="population">population</option>
-        <option value="orbital_period">orbital_period</option>
-        <option value="diameter">diameter</option>
-        <option value="rotation_period">rotation_period</option>
-        <option value="surface_water">surface_water</option>
+        {availableColumns.map((option) => (
+          <option key={ option } value={ option }>{option}</option>
+        ))}
       </select>
       <select
         data-testid="comparison-filter"
@@ -75,7 +88,12 @@ function Filters() {
         value={ valueFilter }
         onChange={ handleValueFilterChange }
       />
-      <button type="button" data-testid="button-filter" onClick={ handleClick }>
+      <button
+        type="button"
+        data-testid="button-filter"
+        onClick={ handleClick }
+        disabled={ availableColumns.length === 0 }
+      >
         Filtrar
       </button>
     </div>
