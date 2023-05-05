@@ -2,10 +2,24 @@ import React, { useContext } from 'react';
 import PlanetsContext from '../../../context/PlanetsContext';
 
 function Table() {
-  const { planets, filterName } = useContext(PlanetsContext);
+  const { planets, nameFilter, filters } = useContext(PlanetsContext);
 
-  const filteredPlanets = planets
-    .filter((planet) => planet.name.toLowerCase().includes(filterName.toLowerCase()));
+  const filteredPlanetsByName = planets
+    .filter((planet) => planet.name.toLowerCase().includes(nameFilter.toLowerCase()));
+
+  const filteredPlanets = filteredPlanetsByName
+    .filter((planet) => filters.every((filter) => {
+      switch (filter.comparison) {
+      case 'maior que':
+        return parseFloat(planet[filter.column]) > parseFloat(filter.value);
+      case 'menor que':
+        return parseFloat(planet[filter.column]) < parseFloat(filter.value);
+      case 'igual a':
+        return planet[filter.column] === filter.value;
+      default:
+        return true;
+      }
+    }));
 
   return (
     <table>
