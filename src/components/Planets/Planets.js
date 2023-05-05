@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import './style.css';
 import Table from './Table/Table';
+import PlanetsContext from '../../context/PlanetsContext';
 
 function Planets() {
-  const [planets, setPlanets] = useState([]);
+  const { setPlanets } = useContext(PlanetsContext);
 
   useEffect(() => {
     fetch('https://swapi.dev/api/planets')
@@ -14,9 +15,9 @@ function Planets() {
         });
         setPlanets(data.results);
       });
-  }, []);
+  }, [setPlanets]);
 
-  return <Table planets={ planets } />;
+  return <Table />;
 }
 
 export default Planets;

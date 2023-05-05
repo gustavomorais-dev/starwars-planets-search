@@ -1,7 +1,12 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useContext } from 'react';
+import PlanetsContext from '../../../context/PlanetsContext';
 
-function Table({ planets }) {
+function Table() {
+  const { planets, filterName } = useContext(PlanetsContext);
+
+  const filteredPlanets = planets
+    .filter((planet) => planet.name.toLowerCase().includes(filterName.toLowerCase()));
+
   return (
     <table>
       <thead>
@@ -22,7 +27,7 @@ function Table({ planets }) {
         </tr>
       </thead>
       <tbody>
-        {planets.map((planet, index) => (
+        {filteredPlanets.map((planet, index) => (
           <tr key={ index }>
             <td>{planet.name}</td>
             <td>{planet.rotation_period}</td>
@@ -43,25 +48,5 @@ function Table({ planets }) {
     </table>
   );
 }
-
-Table.propTypes = {
-  planets: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      rotation_period: PropTypes.string.isRequired,
-      orbital_period: PropTypes.string.isRequired,
-      diameter: PropTypes.string.isRequired,
-      climate: PropTypes.string.isRequired,
-      gravity: PropTypes.string.isRequired,
-      terrain: PropTypes.string.isRequired,
-      surface_water: PropTypes.string.isRequired,
-      population: PropTypes.string.isRequired,
-      films: PropTypes.arrayOf(PropTypes.string).isRequired,
-      created: PropTypes.string.isRequired,
-      edited: PropTypes.string.isRequired,
-      url: PropTypes.string.isRequired,
-    }),
-  ).isRequired,
-};
 
 export default Table;
