@@ -9,6 +9,13 @@ export default function PlanetsProvider({ children }) {
   const [comparisonFilter, setComparisonFilter] = useState('maior que');
   const [valueFilter, setValueFilter] = useState(0);
   const [filters, setFilters] = useState([]);
+  const [availableColumns, setAvailableColumns] = useState([
+    'population',
+    'orbital_period',
+    'diameter',
+    'rotation_period',
+    'surface_water',
+  ]);
 
   return (
     <PlanetsContext.Provider
@@ -25,6 +32,8 @@ export default function PlanetsProvider({ children }) {
         setValueFilter,
         filters,
         setFilters,
+        availableColumns,
+        setAvailableColumns,
       } }
     >
       { children }

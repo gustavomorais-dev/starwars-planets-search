@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import PlanetsContext from '../../context/PlanetsContext';
 
 function Filters() {
@@ -13,15 +13,9 @@ function Filters() {
     setValueFilter,
     filters,
     setFilters,
+    availableColumns,
+    setAvailableColumns,
   } = useContext(PlanetsContext);
-
-  const [availableColumns, setAvailableColumns] = useState([
-    'population',
-    'orbital_period',
-    'diameter',
-    'rotation_period',
-    'surface_water',
-  ]);
 
   const handleNameFilterChange = (event) => {
     setNameFilter(event.target.value);
@@ -53,6 +47,19 @@ function Filters() {
     } else {
       setColumnFilter('');
     }
+  };
+
+  const handleDeleteAllFilters = () => {
+    setFilters([]);
+    const newColumnOptions = [
+      'population',
+      'orbital_period',
+      'diameter',
+      'rotation_period',
+      'surface_water',
+    ];
+    setAvailableColumns(newColumnOptions);
+    setColumnFilter(newColumnOptions[0]);
   };
 
   return (
@@ -95,6 +102,14 @@ function Filters() {
         disabled={ availableColumns.length === 0 }
       >
         Filtrar
+      </button>
+      <button
+        type="button"
+        data-testid="button-remove-filters"
+        onClick={ handleDeleteAllFilters }
+        disabled={ filters.length === 0 }
+      >
+        Remover Filtros
       </button>
     </div>
   );
