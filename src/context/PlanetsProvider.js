@@ -16,6 +16,16 @@ export default function PlanetsProvider({ children }) {
     'rotation_period',
     'surface_water',
   ]);
+  const [columnToOrder, setColumnToOrder] = useState('population');
+  const [sortOrder, setSortOrder] = useState('');
+  const [sortConfig, setSortConfig] = useState(
+    {
+      order: {
+        column: 'population',
+        sort: 'ASC',
+      },
+    },
+  );
 
   return (
     <PlanetsContext.Provider
@@ -34,6 +44,12 @@ export default function PlanetsProvider({ children }) {
         setFilters,
         availableColumns,
         setAvailableColumns,
+        columnToOrder,
+        setColumnToOrder,
+        sortOrder,
+        setSortOrder,
+        sortConfig,
+        setSortConfig,
       } }
     >
       { children }

@@ -15,6 +15,11 @@ function Filters() {
     setFilters,
     availableColumns,
     setAvailableColumns,
+    columnToOrder,
+    setColumnToOrder,
+    sortOrder,
+    setSortOrder,
+    setSortConfig,
   } = useContext(PlanetsContext);
 
   const handleNameFilterChange = (event) => {
@@ -33,7 +38,15 @@ function Filters() {
     setValueFilter(event.target.value);
   };
 
-  const handleClick = () => {
+  const handleColumnToOrderChange = (event) => {
+    setColumnToOrder(event.target.value);
+  };
+
+  const handleSortOrderChange = (event) => {
+    setSortOrder(event.target.value);
+  };
+
+  const handleClickAddFilter = () => {
     const newFilter = {
       column: columnFilter,
       comparison: comparisonFilter,
@@ -62,25 +75,36 @@ function Filters() {
     setColumnFilter(newColumnOptions[0]);
   };
 
+  const handleClickSort = () => {
+    setSortConfig({ order: { column: setColumnToOrder, sort: sortOrder } });
+  };
+
   return (
-    <div>
-      <label htmlFor="filterInput">Filter Planets: </label>
+    <div className="filters">
+      <label htmlFor="name-filter">Filtrar Planetas:</label>
       <input
         type="text"
+        id="name-filter"
         data-testid="name-filter"
         value={ nameFilter }
         onChange={ handleNameFilterChange }
       />
+      <label htmlFor="column-filter">Filtrar por Coluna:</label>
       <select
+        id="column-filter"
         data-testid="column-filter"
         value={ columnFilter }
         onChange={ handleColumnFilterChange }
       >
         {availableColumns.map((option) => (
-          <option key={ option } value={ option }>{option}</option>
+          <option key={ option } value={ option }>
+            {option}
+          </option>
         ))}
       </select>
+      <label htmlFor="comparison-filter">Comparar:</label>
       <select
+        id="comparison-filter"
         data-testid="comparison-filter"
         value={ comparisonFilter }
         onChange={ handleComparisonFilterChange }
@@ -89,8 +113,10 @@ function Filters() {
         <option value="menor que">menor que</option>
         <option value="igual a">igual a</option>
       </select>
+      <label htmlFor="value-filter">Valor:</label>
       <input
         type="number"
+        id="value-filter"
         data-testid="value-filter"
         value={ valueFilter }
         onChange={ handleValueFilterChange }
@@ -98,7 +124,7 @@ function Filters() {
       <button
         type="button"
         data-testid="button-filter"
-        onClick={ handleClick }
+        onClick={ handleClickAddFilter }
         disabled={ availableColumns.length === 0 }
       >
         Filtrar
@@ -110,6 +136,47 @@ function Filters() {
         disabled={ filters.length === 0 }
       >
         Remover Filtros
+      </button>
+      <label htmlFor="column-sort">Ordenar por:</label>
+      <select
+        id="column-sort"
+        data-testid="column-sort"
+        value={ columnToOrder }
+        onChange={ handleColumnToOrderChange }
+      >
+        <option value="population">population</option>
+        <option value="orbital_period">orbital_period</option>
+        <option value="diameter">diameter</option>
+        <option value="rotation_period">rotation_period</option>
+        <option value="surface_water">surface_water</option>
+      </select>
+      <label>
+        <input
+          type="radio"
+          name="sortOrder"
+          value="ASC"
+          data-testid="column-sort-input-asc"
+          onChange={ handleSortOrderChange }
+        />
+        Ascendente
+      </label>
+      <label>
+        <input
+          type="radio"
+          name="sortOrder"
+          value="DESC"
+          data-testid="column-sort-input-desc"
+          onChange={ handleSortOrderChange }
+        />
+        Descendente
+      </label>
+      <button
+        type="button"
+        data-testid="column-sort-button"
+        onClick={ handleClickSort }
+        disabled={ sortOrder.length === 0 }
+      >
+        Ordenar
       </button>
     </div>
   );

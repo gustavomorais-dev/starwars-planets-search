@@ -2,7 +2,13 @@ import React, { useContext } from 'react';
 import PlanetsContext from '../../../context/PlanetsContext';
 
 function Table() {
-  const { planets, nameFilter, filters } = useContext(PlanetsContext);
+  const {
+    planets,
+    nameFilter,
+    filters,
+    columnToOrder,
+    sortOrder,
+  } = useContext(PlanetsContext);
 
   const filteredPlanetsByName = planets
     .filter((planet) => planet.name.toLowerCase().includes(nameFilter.toLowerCase()));
@@ -20,6 +26,36 @@ function Table() {
         return true;
       }
     }));
+
+  const sortedPlanets = filteredPlanets.sort((a, b) => {
+    let aValue;
+    let bValue;
+
+    if (a[columnToOrder] === 'unknown') {
+      if (sortOrder === 'DESC') {
+        aValue = Number.MIN_SAFE_INTEGER;
+      } else {
+        aValue = Number.MAX_SAFE_INTEGER;
+      }
+    } else {
+      aValue = parseFloat(a[columnToOrder]);
+    }
+
+    if (b[columnToOrder] === 'unknown') {
+      if (sortOrder === 'DESC') {
+        bValue = Number.MIN_SAFE_INTEGER;
+      } else {
+        bValue = Number.MAX_SAFE_INTEGER;
+      }
+    } else {
+      bValue = parseFloat(b[columnToOrder]);
+    }
+
+    if (sortOrder === 'DESC') {
+      return bValue - aValue; // ordem descendente
+    }
+    return aValue - bValue;
+  });
 
   return (
     <table>
@@ -41,9 +77,9 @@ function Table() {
         </tr>
       </thead>
       <tbody>
-        {filteredPlanets.map((planet, index) => (
+        {sortedPlanets.map((planet, index) => (
           <tr key={ index }>
-            <td>{planet.name}</td>
+            <td data-testid="planet-name">{planet.name}</td>
             <td>{planet.rotation_period}</td>
             <td>{planet.orbital_period}</td>
             <td>{planet.diameter}</td>
