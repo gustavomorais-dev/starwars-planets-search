@@ -1,10 +1,25 @@
-# :construction: README em construção ! :construction:
-<!-- Olá, Tryber!
-Esse é apenas um arquivo inicial para o README do seu projeto.
-É essencial que você preencha esse documento por conta própria, ok?
-Não deixe de usar nossas dicas de escrita de README de projetos, e deixe sua criatividade brilhar!
-:warning: IMPORTANTE: você precisa deixar nítido:
-- quais arquivos/pastas foram desenvolvidos por você; 
-- quais arquivos/pastas foram desenvolvidos por outra pessoa estudante;
-- quais arquivos/pastas foram desenvolvidos pela Trybe.
--->
+# StarWars Planets Search
+
+Uma lista de planetas do universo StarWars com filtros de pesquisa. O app utiliza Context API e Hooks para controlar os estados globais.
+
+## Começando
+
+Para testar a aplicação localmente, clone o repositório e siga os seguintes passos:
+
+1. **Instalar Dependências:**
+
+```
+$ npm install
+```
+
+2. **Iniciar o aplicativo:**
+
+```
+$ npm start
+```
+
+3. **Rodar os testes**
+
+```
+$ npm test
+```
