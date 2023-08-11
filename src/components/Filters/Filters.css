@@ -1,0 +1,72 @@
+.filters-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2vh;
+}
+
+.filters-content {
+    display: flex;
+    width: 70vw;
+    align-items: center;
+    justify-content: center;
+}
+
+.filters-content div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 50px;
+    border: 1px solid #ad7d37;
+    height: 25vh;
+    width: 10vw;
+    margin: 4vw;
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: 5px;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5);
+    color: #ad7d37;
+}
+
+.radio-select {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+}
+
+input {
+    width: 9.5vw;
+    margin: 10px;
+    background-color: #000;
+    border: 1px solid #ad7d37;
+    color: #fff;
+    padding: 3px;
+}
+
+.input-radio {
+    width: auto;
+}
+
+select {
+    width: 10vw;
+    margin: 10px;
+    background-color: #000;
+    border: 1px solid #ad7d37;
+    color: #fff;
+    padding: 3px;
+}
+
+button {
+    width: 10vw;
+    margin: 10px;
+    background-color: #ad7d37;
+    border: 1px solid #ad7d37;
+    padding: 3px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #503a19;
+    border: 1px solid #ad7d37;
+}

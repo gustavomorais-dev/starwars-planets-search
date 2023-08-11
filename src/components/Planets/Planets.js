@@ -1,5 +1,4 @@
 import React, { useContext, useEffect } from 'react';
-import './style.css';
 import Table from './Table/Table';
 import PlanetsContext from '../../context/PlanetsContext';
 
